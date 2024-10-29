@@ -8,6 +8,7 @@ export interface Entry {
     owner_url: string
     avatar_url: string
     notes: string
+    liked: boolean
 }
 
 export enum SortOptions {

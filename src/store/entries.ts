@@ -6,6 +6,8 @@ class Entries {
     entries: Array<Entry> = []
     isFetching: boolean = false
     page: number = 1
+    sort: string = "stars"
+    isAscending: boolean = false
 
     constructor () {
         makeAutoObservable(this)
@@ -23,14 +25,26 @@ class Entries {
         this.page = value
     }
 
+    setSort = (value: string) => {
+        this.sort = value
+        this.page = 1
+        this.entries = []
+    }
+
+
     deleteEntry (id: string) {
         this.setEntries(this.entries.filter(entry => entry.id !== id))
     }
 
+    likeEntry (id: string) {
+        this.setEntries(this.entries.map(entry => entry.id === id ? {...entry, liked: ! entry.liked} : entry))
+    }
+
+
     fetchEntries() {
         console.log("fetching now")
         this.setisFetching(true)
-        fetch(`https://api.github.com/search/repositories?q=javascript&amp;sort=stars&amp;order=asc&amp;page=${this.page}`, {
+        fetch(`https://api.github.com/search/repositories?q=javascript&amp;per_page=40&amp;sort=${this.sort}&amp;order=${this.isAscending ? "asc" : "desc"}&amp;page=${this.page}`, {
             headers: {
                 'User-Agent': 'infinite-scroll-assignment'
               }} 
@@ -46,7 +60,8 @@ class Entries {
                 owner: item.owner.login,
                 owner_url: item.owner.html_url,
                 avatar_url: item.owner.avatar_url,
-                notes: ""
+                notes: "",
+                liked: false
             }))])
         }).then(() => {
             this.setisFetching(false)
