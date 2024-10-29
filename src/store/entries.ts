@@ -21,20 +21,30 @@ class Entries {
 
     setPage = (value: number) => {
         this.page = value
-        console.log(this.page)
+    }
+
+    deleteEntry (id: string) {
+        this.setEntries(this.entries.filter(entry => entry.id !== id))
     }
 
     fetchEntries() {
+        console.log("fetching now")
         this.setisFetching(true)
-        fetch(`https://api.github.com/search/repositories?q=javascript&amp;sort=stars&amp;order=asc&amp;page=${this.page}`)
+        fetch(`https://api.github.com/search/repositories?q=javascript&amp;sort=stars&amp;order=asc&amp;page=${this.page}`, {
+            headers: {
+                'User-Agent': 'infinite-scroll-assignment'
+              }} 
+        )
         .then(response => response.json())
         .then((response) => {
             this.setEntries([...this.entries, ...response.items.map((item:any) => ({
                 id: item.id,
                 name: item.name,
-                url: item.url,
+                url: item.html_url,
+                updated_at: new Date(item.updated_at),
+                stars: item.stargazers_count,
                 owner: item.owner.login,
-                owner_url: item.owner.url,
+                owner_url: item.owner.html_url,
                 avatar_url: item.owner.avatar_url,
                 notes: ""
             }))])
