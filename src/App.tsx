@@ -5,10 +5,14 @@ import { FloatButton } from 'antd';
 
 function App() {
 
+  
+
   return (
     <div className={styles.app}>
-      <Controls/>
-      <EntryList/>
+      <div className={styles.container}>
+        <Controls/>
+        <EntryList/>
+      </div>
       <FloatButton.BackTop/>
     </div>
   )

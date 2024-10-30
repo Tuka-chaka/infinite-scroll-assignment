@@ -12,7 +12,7 @@ const EntryList = observer(() => {
   useEffect(() => {
     const options = {
       root: null,
-      rootMargin: "0px 0px 3000px 0px",
+      rootMargin: "0px 0px 5000px 0px",
       threshold: 0,
     }
     observer.current = new IntersectionObserver((observerEntries) => {

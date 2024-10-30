@@ -29,6 +29,14 @@ class Entries {
         this.sort = value
         this.page = 1
         this.entries = []
+        console.log(this.sort)
+    }
+
+    setIsAscending = (value: boolean) => {
+        this.isAscending = value
+        this.page = 1
+        this.entries = []
+        console.log(this.isAscending)
     }
 
 
@@ -36,8 +44,9 @@ class Entries {
         this.setEntries(this.entries.filter(entry => entry.id !== id))
     }
 
-    likeEntry (id: string) {
-        this.setEntries(this.entries.map(entry => entry.id === id ? {...entry, liked: ! entry.liked} : entry))
+    likeEntry (entry: Entry) {
+        console.log(entry.liked)
+        entry.liked = !entry.liked
     }
 
 
@@ -55,7 +64,7 @@ class Entries {
                 id: item.id,
                 name: item.name,
                 url: item.html_url,
-                updated_at: new Date(item.updated_at),
+                updated_at: new Date(item.pushed_at),
                 stars: item.stargazers_count,
                 owner: item.owner.login,
                 owner_url: item.owner.html_url,
