@@ -48,6 +48,7 @@ class Entries {
 
 
     fetchEntries() {
+        /* eslint-disable @typescript-eslint/no-explicit-any */
         this.setisFetching(true)
         fetch(`https://api.github.com/search/repositories?q=javascript&amp;per_page=40&amp;sort=${this.sort}&amp;order=${this.isAscending ? "asc" : "desc"}&amp;page=${this.page}`, {
             headers: {
@@ -71,6 +72,7 @@ class Entries {
             this.setisFetching(false)
             this.setPage(this.page + 1)
         })
+        /* eslint-enable @typescript-eslint/no-explicit-any */
     }
 }
 

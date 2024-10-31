@@ -1,7 +1,6 @@
 
 import '@testing-library/jest-dom'
 import EntryCard from "../components/entryCard/EntryCard";
-import entries from "../store/entries";
 import { render } from "@testing-library/react"
 
 const mockEntry = {
@@ -24,8 +23,8 @@ describe('EntryCard', () => {
             matches: false,
             media: query,
             onchange: null,
-            addListener: jest.fn(), // Deprecated
-            removeListener: jest.fn(), // Deprecated
+            addListener: jest.fn(), 
+            removeListener: jest.fn(), 
             addEventListener: jest.fn(),
             removeEventListener: jest.fn(),
             dispatchEvent: jest.fn(),

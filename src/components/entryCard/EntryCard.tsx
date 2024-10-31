@@ -16,13 +16,13 @@ const EntryCard = observer(({entry}: {entry: Entry}) => {
   }
 
   return (
-    <Card className={!isDeleting ? styles.card : styles.card + " " + styles.deleting}
+    <Card data-testid="entryCard" className={!isDeleting ? styles.card : styles.card + " " + styles.deleting}
       title={<a data-testid="repoName" target="_blank" rel="noopener noreferrer"href={entry.url}>
         {entry.name}
       </a>}
       extra={<div className={styles.actionsContainer}>
-        <Button shape="circle" color="primary" variant="outlined" icon={entry.liked ? <HeartFilled /> : <HeartOutlined/>} onClick={() => entries.likeEntry(entry)}/>
-        <Button shape="circle" danger icon={<DeleteOutlined />} onClick={() => handleDelete()}/>
+        <Button data-testid="likeButton" shape="circle" color="primary" variant="outlined" icon={entry.liked ? <HeartFilled /> : <HeartOutlined/>} onClick={() => entries.likeEntry(entry)}/>
+        <Button data-testid="deleteButton" shape="circle" danger icon={<DeleteOutlined />} onClick={() => handleDelete()}/>
       </div>}>
       <div className={styles.cardContent}>
         <Card.Meta
