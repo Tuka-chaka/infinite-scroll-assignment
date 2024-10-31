@@ -1,6 +1,6 @@
 import styles from "./Controls.module.css"
 import entries from "../../store/entries";
-import { Select } from "antd";
+import { Select, Switch } from "antd";
 import { observer } from "mobx-react-lite";
 
 const Controls = observer(() => {
@@ -10,11 +10,6 @@ const Controls = observer(() => {
       { value: 'updated', label: 'Дата изменения' },
     ]
 
-    const orderOptions = [
-      { value: true, label: 'Возрастанию' },
-      { value: false, label: 'Убыванию' },
-    ]
-
     return (
       <div className={styles.controls}>
         <div className={styles.selectContainer}>
@@ -22,18 +17,18 @@ const Controls = observer(() => {
             Сортировать:
           </div>
           <Select options={sortOptions}
+            size="small"
             defaultValue={"stars"}
             popupMatchSelectWidth={false}
             onSelect={(value) => entries.setSort(value)}/>
         </div>
         <div className={styles.selectContainer}>
-          <div className={styles.controlsLabel}>
-            По:
-          </div>
-          <Select options={orderOptions}
-            defaultValue={false}
-            popupMatchSelectWidth={false}
-            onSelect={(value) => entries.setIsAscending(value)}/>
+          <Switch
+            defaultChecked={false}
+            checkedChildren="По возрастанию"
+            unCheckedChildren="По убыванию"
+            onChange={(checked) => entries.setIsAscending(checked)}
+          />
         </div>
       </div>
     );

@@ -29,14 +29,12 @@ class Entries {
         this.sort = value
         this.page = 1
         this.entries = []
-        console.log(this.sort)
     }
 
     setIsAscending = (value: boolean) => {
         this.isAscending = value
         this.page = 1
         this.entries = []
-        console.log(this.isAscending)
     }
 
 
@@ -45,13 +43,11 @@ class Entries {
     }
 
     likeEntry (entry: Entry) {
-        console.log(entry.liked)
         entry.liked = !entry.liked
     }
 
 
     fetchEntries() {
-        console.log("fetching now")
         this.setisFetching(true)
         fetch(`https://api.github.com/search/repositories?q=javascript&amp;per_page=40&amp;sort=${this.sort}&amp;order=${this.isAscending ? "asc" : "desc"}&amp;page=${this.page}`, {
             headers: {
@@ -69,7 +65,6 @@ class Entries {
                 owner: item.owner.login,
                 owner_url: item.owner.html_url,
                 avatar_url: item.owner.avatar_url,
-                notes: "",
                 liked: false
             }))])
         }).then(() => {
